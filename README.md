@@ -1,5 +1,11 @@
 # vue-ts-experiment
 
+This app sends request to: https://jsonplaceholder.typicode.com/.
+This api will return automatically users, contacts, companies. Nice for playing around.
+
+
+
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
