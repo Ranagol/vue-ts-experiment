@@ -3,7 +3,7 @@
 This app sends request to: https://jsonplaceholder.typicode.com/.
 This api will return automatically users, contacts, companies. Nice for playing around.
 
-
+This app is used for practising TypeScript. The goal is to create a basic CRUD system, that displays users from   baseURL: 'https://jsonplaceholder.typicode.com/',
 
 
 This template should help get you started developing with Vue 3 in Vite.
