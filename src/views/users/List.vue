@@ -20,33 +20,13 @@
 import { reactive, computed, watch, onMounted, ref, onUpdated, nextTick } from "vue";
 import userServices from "../../services/UserService";
 import type { User } from "../../types/interfaces";//Notice the import type!!!
+import { h } from 'vue'
+import { ElNotification } from 'element-plus'
 
 let data = reactive({
     users: [] as Array<User>,//This is how we define an array of User types.
 });
 
-const tableData = [
-    {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-];
 
 onMounted(async () => {
     console.log("onMounted.");
@@ -56,7 +36,12 @@ onMounted(async () => {
         console.log("users:", users);
         data.users = users;
     } catch (error) {
-        console.log("error:", error);
+        console.log("The error is:", error);
+        // alert("Error while fetching users.");
+        ElNotification({
+            title: 'We have some Axios problem',
+            message: h('i', { style: 'color: teal' }, 'Error while fetching users'),
+        })
     }
 });
 </script>

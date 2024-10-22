@@ -1,3 +1,7 @@
+/**
+ * Here we define all our types. We work with users, and every user has an address and a company.
+ * See below how these types are defined.
+ */
 // Here is how one User object looks like:
 // {
 //     "id": 1,
