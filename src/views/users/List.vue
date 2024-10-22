@@ -1,34 +1,20 @@
 <template>
     <h1>Users</h1>
+
+    <el-button type="primary">Test</el-button>
+
+    {{ data.users }}
+
 </template>
 
 <script setup lang="ts">
 import { reactive, computed, watch, onMounted, ref, onUpdated, nextTick } from "vue";
 import userServices from "../../services/UserService";
+import type { User } from "../../types/interfaces";//Notice the import type!!!
 
-let props = defineProps({});
-
-let data = reactive({});
-
-const myMethod = () => {
-    console.log("myMethod");
-};
-
-const emit = defineEmits(["hide"]);
-
-let computedExample = computed(() => {
-    return "random text by computed";
+let data = reactive({
+    users: [] as Array<User>,
 });
-
-watch(
-    () => data,
-    (newValue, oldValue) => {
-        console.log("count changed");
-        console.log("oldValue:", oldValue);
-        console.log("newValue:", newValue);
-    },
-    { deep: true }
-);
 
 onMounted(async () => {
     console.log("onMounted.");
@@ -36,6 +22,7 @@ onMounted(async () => {
     try {
         const users = await userServices.getUsers();
         console.log("users:", users);
+        data.users = users;
     } catch (error) {
         console.log("error:", error);
     }
