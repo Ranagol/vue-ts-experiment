@@ -35,6 +35,11 @@ class UserService {
         const response = await AxiosService.put(`/users/${user.id}`, user);
         return response.data as User;
     }
+
+    public async deleteUser(id: number): Promise<void> {
+        const response = await AxiosService.delete(`/users/${id}`);
+        return response.data;
+    }
 }
 
 const userService = new UserService();

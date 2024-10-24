@@ -10,6 +10,7 @@
         style="width: 100%;"
         empty-text="No result. Try with different search parameters."
     >
+        <!-- Displaying dinamically the id od the user with the help of the v-slot -->
         <el-table-column prop="id" label="ID" width="100">
             <template v-slot="scope">
 
@@ -22,14 +23,24 @@
             </template>
 
         </el-table-column>
-
         <el-table-column prop="name" label="Name" />
-        <el-table-column prop="username" label="Username" />
         <el-table-column prop="email" label="Email" />
-        <el-table-column prop="address.city" label="Address" />
         <el-table-column prop="phone" label="Phone" />
-        <el-table-column prop="website" label="Website" />
         <el-table-column prop="company.name" label="Company" />
+
+        <!-- How to insert a delete button into a table with scope -->
+        <el-table-column>
+            <template v-slot="scope">
+                <el-button
+                    type="primary"
+                    size="mini"
+                    @click="deleteUser(scope.row.id)"
+                >
+                    Delete
+                </el-button>
+            </template>
+        </el-table-column>
+
     </el-table>
 
 </template>
@@ -45,6 +56,10 @@ onMounted(async () => {
     // console.log("onMounted.");
     userStore.getUsers();
 });
+
+const deleteUser = (id: number) => {
+    userStore.deleteUser(id);
+};
 
 </script>
 

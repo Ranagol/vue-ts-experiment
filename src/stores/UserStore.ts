@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import type { User } from "../types/interfaces";//Notice the import type!!!
-import userServices from "../services/UserService";
+import userService from "../services/UserService";
 import { h } from 'vue'
 import { ElNotification } from 'element-plus'
 
@@ -18,7 +18,7 @@ export const useUserStore = defineStore({
 
         async getUsers() {
             try {
-                this.users = await userServices.getUsers();
+                this.users = await userService.getUsers();
             } catch (error) {
                 console.log("The error is:", error);
                 alert("Error while fetching users.");
@@ -32,7 +32,7 @@ export const useUserStore = defineStore({
 
         async getUserById(id: number) {
             try {
-                this.user = await userServices.getUserById(id);
+                this.user = await userService.getUserById(id);
             } catch (error) {
                 alert("Error while fetching user.");
                 ElNotification({
@@ -44,7 +44,7 @@ export const useUserStore = defineStore({
 
         async updateUser(user: User) {
             try {
-                this.user = await userServices.updateUser(user);
+                this.user = await userService.updateUser(user);
                 console.log('This is the updated user object recevied from api:', this.user);
                 alert(`New name is:, ${this.user.name}, new email is: ${this.user.email}`);
             } catch (error) {
@@ -52,6 +52,24 @@ export const useUserStore = defineStore({
                 ElNotification({
                     title: 'We have some Axios problem',
                     message: h('i', { style: 'color: teal' }, 'Error while updating user'),
+                })
+            }
+        },
+
+        async deleteUser(id: number) {
+            try {
+                // Deletes from db
+                await userService.deleteUser(id);
+
+                // Deletes from store
+                this.users = this.users.filter(user => user.id !== id);
+
+                alert("User deleted.");
+            } catch (error) {
+                alert("Error while deleting user.");
+                ElNotification({
+                    title: 'We have some Axios problem',
+                    message: h('i', { style: 'color: teal' }, 'Error while deleting user'),
                 })
             }
         }
