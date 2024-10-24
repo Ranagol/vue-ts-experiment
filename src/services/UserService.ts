@@ -30,6 +30,11 @@ class UserService {
         const response = await AxiosService.get(`/users/${id}`);
         return response.data as User;
     }
+
+    public async updateUser(user: User): Promise<User> {
+        const response = await AxiosService.put(`/users/${user.id}`, user);
+        return response.data as User;
+    }
 }
 
 const userService = new UserService();
